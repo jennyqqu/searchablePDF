@@ -34,7 +34,7 @@ Navigate to it via: Google Dev Console > Credentials > New credentials > Service
 Download the JSON file.
 }
 \examples{
-\donttest{
+\dontrun{
 
 google_auth_loc <- 'your google api service authentication.json'
 
@@ -43,10 +43,12 @@ pdf_export_loc = '/Users/jenny/pdf_output'
 input_directory <- 'your input directory'
 
 # example if you dont have python installed and want to use the automated downloaded one (3.8.7)
-convert_pdf_searchable(google_auth_loc,python_interpreter,input_directory,pdf_export_loc)
+convert_pdf_searchable(google_auth_loc,python_interpreter,
+input_directory,pdf_export_loc)
 
 # example if you already have python and you want to use that instead
-convert_pdf_searchable(google_auth_loc,python_interpreter = 'usr/bin/python',input_directory,pdf_export_loc)
+convert_pdf_searchable(google_auth_loc,python_interpreter = 'usr/bin/python'
+,input_directory,pdf_export_loc)
 
 }
 }

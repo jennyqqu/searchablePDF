@@ -42,6 +42,9 @@ get_pdf_list <- function(input_directory){
 
 
 
+
+
+
 generate_dir_pdf_list <- function(pdf_list){
   pdf_dir_list <- list()
   for (pdf in pdf_list$pdf_files){
@@ -177,11 +180,12 @@ call_python_export_pdf <- function(python_loc,pdf_filename,pdf_export_loc,pdf_di
 #' @import reticulate
 #' @import googleAuthR
 #' @import pbapply
+#' @import stats
 #' @return
 #' @export
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #'
 #' google_auth_loc <- 'your google api service authentication.json'
 #'
@@ -190,62 +194,16 @@ call_python_export_pdf <- function(python_loc,pdf_filename,pdf_export_loc,pdf_di
 #' input_directory <- 'your input directory'
 #'
 #' # example if you dont have python installed and want to use the automated downloaded one (3.8.7)
-#' convert_pdf_searchable(google_auth_loc,python_interpreter,input_directory,pdf_export_loc)
+#' convert_pdf_searchable(google_auth_loc,python_interpreter,
+#' input_directory,pdf_export_loc)
 #'
 #' # example if you already have python and you want to use that instead
-#' convert_pdf_searchable(google_auth_loc,python_interpreter = 'usr/bin/python',input_directory,pdf_export_loc)
+#' convert_pdf_searchable(google_auth_loc,python_interpreter = 'usr/bin/python'
+#' ,input_directory,pdf_export_loc)
 #'
 #' }
 
-#
-# convert_pdf_searchable <- function(google_auth_file_loc,python_interpreter = NULL,input_directory, pdf_export_loc){
-#
-#   validate_google_auth(google_auth_file_loc)
-#
-#   python_info <- setup_python_virtual_env(python_interpreter=python_interpreter)
-#
-#   python_loc <- python_info$python_loc
-#
-#   pdf_list <- get_pdf_list(input_directory)
-#
-#   pdf_dir_list<- generate_dir_pdf_list(pdf_list)
-#
-#
-#   for(i in seq(1,length(pdf_list))){
-#
-#     #i = 1
-#     print(i)
-#     pdf_path = pdf_list$pdf_paths[i]
-#     pdf_name = pdf_list$pdf_files[i]
-#     pdf_dir = pdf_dir_list[i]
-#     json_path <- convert_jpeg_json_per_pdf(python_loc = python_loc,
-#                                            auth_file_loc = google_auth_file_loc,
-#                                            pdf_path=pdf_path,
-#                                            pdf_name= pdf_name,
-#                                            pdf_dir_list = pdf_dir_list)
-#
-#
-#
-#     call_python_convert_gcv_hocr(python_loc ,json_path)
-#
-#
-#     call_python_export_pdf(python_loc,pdf_filename = pdf_name,pdf_export_loc = '/Users/qianqu/Code/data_science/project/searchablePDF/OCR/R/package_output'
-#                            #,pdf_dir = str_replace_all(pdf_dir[[1]]$search_pdf_subdir_out,'//','/')
-#                            ,pdf_dir = pdf_dir[[1]]$search_pdf_subdir_out
-#                            #,pdf_dir = '/var/folders/pv/'
-#
-#     )
-#
-#
-#
-#
-#
-#   }
-#
-#
-#
-#
-# }
+
 
 
 

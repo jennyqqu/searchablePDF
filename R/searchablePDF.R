@@ -6,22 +6,23 @@ create_temp_dir_pdf <- function(pdf_name){
 
   search_pdf_dir <- paste0(tempdir(),'/searchPDF')
   search_pdf_subdir <- paste0(tempdir(),'/searchPDF/',pdf_name)
-  #search_pdf_subdir_in <- paste0(search_pdf_subdir,'/input')
+
   search_pdf_subdir_out <- paste0(search_pdf_subdir,'/output')
 
-  if(!'searchPDF' %in% list.dirs(tempdir())){
+  if(!'searchPDF' %in% list.files(tempdir())){
+
     dir.create(search_pdf_dir)
 
   }
-  if(!pdf_name %in% list.dirs(search_pdf_dir )){
+  if(!pdf_name %in% list.files(search_pdf_dir )){
     dir.create(search_pdf_subdir)
-    #dir.create(search_pdf_subdir_in)
+
     dir.create(search_pdf_subdir_out)
   }
 
   return(list(search_pdf_dir = search_pdf_dir
               ,search_pdf_subdir = search_pdf_dir
-              #,search_pdf_subdir_in = search_pdf_subdir_in
+
               ,search_pdf_subdir_out = search_pdf_subdir_out
 
   ))
@@ -48,11 +49,11 @@ get_pdf_list <- function(input_directory){
 generate_dir_pdf_list <- function(pdf_list){
   pdf_dir_list <- list()
   for (pdf in pdf_list$pdf_files){
-    #print(pdf)
+  
     pdf_dir = list(create_temp_dir_pdf(pdf))
     pdf_dir = setNames(pdf_dir,pdf)
     pdf_dir_list <- append(pdf_dir_list,pdf_dir)
-    #print(pdf_dir_list)
+   
   }
   return(pdf_dir_list)
 
@@ -69,7 +70,7 @@ convert_jpeg_json_per_pdf <- function(python_loc,auth_file_loc,pdf_path,pdf_name
 
   file_paths <- paste0(pdf_dir$search_pdf_subdir_out,'/',seq(1,page_size,1),'.jpg')
 
-  invisible(pdf_convert(pdf_path , format = "jpg",dpi = 300,pages =NULL,filenames =file_paths))
+  invisible(pdf_convert(pdf_path , format = "jpg",dpi = 300,pages =NULL,filenames =file_paths,verbose = F))
 
 
   #jpg_list <- paste0(output_directory, "/",folder_name,'/',list.files(paste0(output_directory, "/",folder_name), pattern = "*.jpg"), sep = "")
@@ -79,7 +80,7 @@ convert_jpeg_json_per_pdf <- function(python_loc,auth_file_loc,pdf_path,pdf_name
 
 
   for(jpg in jpg_fullpath){
-    #print(jpg)
+   
 
     call_python_convert_jpg_gcv (python_loc,auth_file_loc,jpg)
 
@@ -93,10 +94,7 @@ convert_jpeg_json_per_pdf <- function(python_loc,auth_file_loc,pdf_path,pdf_name
 call_python_convert_jpg_gcv <- function(python_loc,auth_file_loc,jpg){
 
   json_dir = paste0(str_remove_all(jpg,'.jpg'),'.json')
-  #print(json_dir)
-  # cmd = paste0('"/Users/qianqu/Code/env/ds_py_3.8.10/venv/bin/python" "/Users/qianqu/Code/data_science/project/pythonSearchPDF/get_google_vision.py"  "/Users/qianqu/Code/data_science/project/searchablePDF/OCR/R/OCR_example_1.jpg" --json_dir "/Users/qianqu/Code/data_science/project/searchablePDF/OCR/R/PID_jenny.json"')
-  # cmd = paste0('"',python_loc,'" "','/Users/qianqu/Code/data_science/project/pythonSearchPDF/get_google_vision.py',
-  #              '"  "',jpg,'" --json_dir "',json_dir,'"')
+  
 
   cmd = paste0('',python_loc,' "',system.file("python/get_google_vision.py",package ='searchablePDF'),
                '"  "',jpg,'" --json_dir "',json_dir,'" --auth_file_loc "',auth_file_loc,'"')
@@ -109,21 +107,12 @@ call_python_convert_jpg_gcv <- function(python_loc,auth_file_loc,jpg){
 
 
 call_python_convert_gcv_hocr <- function(python_loc, json_path){
-  # cmd = paste0('"/Users/qianqu/Code/env/ds_py_3.8.10/venv/bin/python"','/Users/qianqu/Code/data_science/project/searchablePDF/OCR/gcv2hocr_new.py',
-  # '"/Users/qianqu/Code/data_science/project/searchablePDF/OCR/R/PID_1/PID_1_1.json" --savefile "PID_1_2.hocr"')
-
-  # cmd = paste0('"/Users/qianqu/Code/env/ds_py_3.8.10/venv/bin/python"',' /Users/qianqu/Code/data_science/project/searchablePDF/OCR/gcv2hocr_new.py',
-  # ' "/Users/qianqu/Code/data_science/project/searchablePDF/OCR/R/PID_jenny.json" --savefile "/Users/qianqu/Code/data_science/project/searchablePDF/OCR/R/PID_jenny.hocr"')
-  #
+  
 
   for (j in json_path){
 
     hocr_path <-paste0(str_remove_all(j,'.json'),'.hocr')
-    #print(hocr_path)
-    #python_loc <- '/Users/qianqu/Code/env/ds_py_3.8.10/venv/bin/python'
-    # cmd = paste0('"',python_loc,'" "','/Users/qianqu/Code/data_science/project/searchablePDF/OCR/gcv2hocr_new_v3.py',
-    #              '"  "',j,'" --savefile "',hocr_path,'"')
-
+    
     cmd = paste0('',python_loc,' "',system.file("python/gcv2hocr.py",package ='searchablePDF'),
                  '"  "',j,'" --savefile "',hocr_path,'"')
 
@@ -135,16 +124,7 @@ call_python_convert_gcv_hocr <- function(python_loc, json_path){
 
 
 call_python_export_pdf <- function(python_loc,pdf_filename,pdf_export_loc,pdf_dir){
-  #python_loc <- '/Users/qianqu/Code/env/ds_py_3.8.10/venv/bin/python'
-  # cmd = paste0('"', python_loc,'" "','/Users/qianqu/Code/data_science/project/searchablePDF/OCR/convert_pdf_new.py"',
-  # ' "/private/var/folders/pv/hs0jp97n3cbfc665v2zd9cnr0000gn/T/RtmpGU6Nt7/searchPDF/PID_1.pdf/output"',
-  # ' --pdf_filename "','PID_1.pdf','" --pdf_export_loc "','/Users/qianqu/Code/data_science/project/searchablePDF/OCR/R/package_output','"'
-  # )
-  #
-  # cmd = paste0('"', python_loc,'" "','/Users/qianqu/Code/data_science/project/searchablePDF/OCR/convert_pdf_new.py','" "',
-  #              pdf_dir,'"',
-  #              ' --pdf_filename "',pdf_filename,'" --pdf_export_loc "',pdf_export_loc,'"'
-  # )
+  
 
   cmd = paste0('', python_loc,' "',system.file("python/convert_pdf.py",package ='searchablePDF'),'" "',
                pdf_dir,'"',
@@ -222,7 +202,7 @@ convert_pdf_searchable <- function(google_auth_file_loc,input_directory, pdf_exp
 
   pdf_dir_list<- generate_dir_pdf_list(pdf_list)
 
-  #print(pdf_dir_list)
+ 
 
 
   invisible(pbmapply(function(pdf_path = pdf_list$pdf_paths,
@@ -251,16 +231,6 @@ convert_pdf_searchable <- function(google_auth_file_loc,input_directory, pdf_exp
 
     cat(paste0('Completed processing ', pdf_name, '\n'))
   },pdf_list$pdf_paths,pdf_list$pdf_files,pdf_dir_list))
-
-
-
-
-
-
-
-
-
-
 
 
 }

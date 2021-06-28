@@ -38,27 +38,52 @@ setup_python_virtual_env<- function(python_interpreter=NULL,force_installation =
   if (force_installation || !virtualenv_exists('searchablePDF')){
     #create virutalenvs
 
-    if(is.null(python_interpreter)){
-    cat("\nGoing to install Python and setup virtual environment for searchablePDF.\n\n")
-
-    version <- "3.8.7"
-    install_python(version = version)
-
-    virtualenv_create("searchablePDF", python_version = version)
-
-
-    }else{
-
-      virtualenv_create("searchablePDF", python = python_interpreter,python_version = version)
+    if(force_installation){
+      cat("\n You chose force_installation option for python virtual environment.\n\n")
+      user_answer <- askYesNo(msg = 'Do you want to continue reinstall Python and setup virtual env? ', default = TRUE,
+                              prompts = getOption("askYesNo", gettext(c("Yes", "No", "Cancel"))),
+      )
 
 
     }
+    else if(!virtualenv_exists('searchablePDF')){
+      cat("\n There is no python virtual environment detected for SeachablePDF.\n\n")
+
+
+      user_answer <- askYesNo(msg = 'Do you want to continue install Python and setup virtual env? ', default = TRUE,
+                              prompts = getOption("askYesNo", gettext(c("Yes", "No", "Cancel"))),
+      )
+
+
+    }
+
+    #If no user permission obtained, stop the program, else continue
+    if(!user_answer){
+      cat("\n Installation virtual environment is cancelled.\n\n")
+      stop('User cancelled Python installation/Permission Denied')
+    }
+
+    if(is.null(python_interpreter)){
+
+        version <- "3.8.7"
+        install_python(version = version)
+
+
+        virtualenv_create("searchablePDF", python_version = version)
+      }
+
+      else{
+
+        virtualenv_create("searchablePDF", python = python_interpreter,python_version = version)
+
+
+      }
 
 
 
 
     #run a command to upgrade pip
-    #cmd = paste0('~/.virtualenvs','/searchablePDF/bin/python3',' ','-m pip install --upgrade pip')
+
     cmd = paste0(virtualenv_root(),'/searchablePDF/bin/python3',' ','-m pip install --upgrade pip')
 
     system(cmd)
@@ -67,7 +92,7 @@ setup_python_virtual_env<- function(python_interpreter=NULL,force_installation =
 
     tryCatch(
       {
-        py_install('google-cloud-vision2',envname = 'searchablePDF',method = c('virtualenv'),pip = TRUE)
+        py_install('google-cloud-vision',envname = 'searchablePDF',method = c('virtualenv'),pip = TRUE)
         py_install('reportlab',envname = 'searchablePDF',method = c('virtualenv'),pip = TRUE)
         py_install('lxml',envname = 'searchablePDF',method = c('virtualenv'),pip = TRUE)
       },error = function(e){

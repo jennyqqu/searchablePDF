@@ -1,11 +1,3 @@
-library(pdftools)
-library(stringr)
-#library(dplyr)
-#library(rjson)
-library(googleAuthR)
-#library(googleCloudVisionR)
-
-
 
 
 

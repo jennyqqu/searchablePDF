@@ -3,9 +3,9 @@ Type: Package
 Title: Use GoogleCloudVision API to convert PDF into searchable PDF
 Version: 0.1.0
 Author: Jenny Qu
-Maintainer: Jenny Qu <jenny.qu@outlook.com>
+Maintainer: Jenny Qu <jenny.qqu@gmail.com>
 Description: A R wrapper to call python functions to utilize GoogleVision API to create searchable PDFs
-License: MIT
+License: Apache 2.0
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1.9001

@@ -92,9 +92,16 @@ setup_python_virtual_env<- function(python_interpreter=NULL,force_installation =
 
     tryCatch(
       {
-        py_install('google-cloud-vision',envname = 'searchablePDF',method = c('virtualenv'),pip = TRUE)
-        py_install('reportlab',envname = 'searchablePDF',method = c('virtualenv'),pip = TRUE)
-        py_install('lxml',envname = 'searchablePDF',method = c('virtualenv'),pip = TRUE)
+
+        cmd = paste0(virtualenv_root(),'/searchablePDF/bin/pip',' ','install google-cloud-vision')
+        system(cmd)
+        cmd = paste0(virtualenv_root(),'/searchablePDF/bin/pip',' ','install reportlab')
+        system(cmd)
+        cmd = paste0(virtualenv_root(),'/searchablePDF/bin/pip',' ','install lxml')
+        system(cmd)
+        #py_install('google-cloud-vision',envname = 'searchablePDF',method = c('virtualenv'),pip = TRUE)
+        #py_install('reportlab',envname = 'searchablePDF',method = c('virtualenv'),pip = TRUE)
+        #py_install('lxml',envname = 'searchablePDF',method = c('virtualenv'),pip = TRUE)
       },error = function(e){
         cat("\nHvaing issues with installing one of the python packages into virtual enviornemnt. Check error message for details.\n\n")
         stop(e)

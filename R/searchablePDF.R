@@ -49,11 +49,11 @@ get_pdf_list <- function(input_directory){
 generate_dir_pdf_list <- function(pdf_list){
   pdf_dir_list <- list()
   for (pdf in pdf_list$pdf_files){
-  
+
     pdf_dir = list(create_temp_dir_pdf(pdf))
     pdf_dir = setNames(pdf_dir,pdf)
     pdf_dir_list <- append(pdf_dir_list,pdf_dir)
-   
+
   }
   return(pdf_dir_list)
 
@@ -80,7 +80,7 @@ convert_jpeg_json_per_pdf <- function(python_loc,auth_file_loc,pdf_path,pdf_name
 
 
   for(jpg in jpg_fullpath){
-   
+
 
     call_python_convert_jpg_gcv (python_loc,auth_file_loc,jpg)
 
@@ -94,7 +94,7 @@ convert_jpeg_json_per_pdf <- function(python_loc,auth_file_loc,pdf_path,pdf_name
 call_python_convert_jpg_gcv <- function(python_loc,auth_file_loc,jpg){
 
   json_dir = paste0(str_remove_all(jpg,'.jpg'),'.json')
-  
+
 
   cmd = paste0('',python_loc,' "',system.file("python/get_google_vision.py",package ='searchablePDF'),
                '"  "',jpg,'" --json_dir "',json_dir,'" --auth_file_loc "',auth_file_loc,'"')
@@ -107,12 +107,12 @@ call_python_convert_jpg_gcv <- function(python_loc,auth_file_loc,jpg){
 
 
 call_python_convert_gcv_hocr <- function(python_loc, json_path){
-  
+
 
   for (j in json_path){
 
     hocr_path <-paste0(str_remove_all(j,'.json'),'.hocr')
-    
+
     cmd = paste0('',python_loc,' "',system.file("python/gcv2hocr.py",package ='searchablePDF'),
                  '"  "',j,'" --savefile "',hocr_path,'"')
 
@@ -124,7 +124,7 @@ call_python_convert_gcv_hocr <- function(python_loc, json_path){
 
 
 call_python_export_pdf <- function(python_loc,pdf_filename,pdf_export_loc,pdf_dir){
-  
+
 
   cmd = paste0('', python_loc,' "',system.file("python/convert_pdf.py",package ='searchablePDF'),'" "',
                pdf_dir,'"',
@@ -202,35 +202,69 @@ convert_pdf_searchable <- function(google_auth_file_loc,input_directory, pdf_exp
 
   pdf_dir_list<- generate_dir_pdf_list(pdf_list)
 
- 
-
-
-  invisible(pbmapply(function(pdf_path = pdf_list$pdf_paths,
-                  pdf_name = pdf_list$pdf_files
-
-                  ,pdf_dir =pdf_dir_list ){
-
-
-    json_path <- convert_jpeg_json_per_pdf(python_loc = python_loc,
-                                           auth_file_loc = google_auth_file_loc,
-                                           pdf_path=pdf_path,
-                                           pdf_name= pdf_name,
-                                           pdf_dir_list = pdf_dir_list)
 
 
 
-    call_python_convert_gcv_hocr(python_loc ,json_path)
+  # invisible(pbmapply(function(pdf_path = pdf_list$pdf_paths,
+  #                 pdf_name = pdf_list$pdf_files
+  #
+  #                 ,pdf_dir =pdf_dir_list ){
+  #
+  #
+  #   json_path <- convert_jpeg_json_per_pdf(python_loc = python_loc,
+  #                                          auth_file_loc = google_auth_file_loc,
+  #                                          pdf_path=pdf_path,
+  #                                          pdf_name= pdf_name,
+  #                                          pdf_dir_list = pdf_dir_list)
+  #
+  #
+  #
+  #   call_python_convert_gcv_hocr(python_loc ,json_path)
+  #
+  #
+  #   call_python_export_pdf(python_loc,pdf_filename = pdf_name,pdf_export_loc = pdf_export_loc
+  #
+  #                          ,pdf_dir = pdf_dir$search_pdf_subdir_out
+  #
+  #
+  #   )
+  #
+  #   cat(paste0('Completed processing ', pdf_name, '\n'))
+  # },pdf_list$pdf_paths,pdf_list$pdf_files,pdf_dir_list))
+  #
 
 
-    call_python_export_pdf(python_loc,pdf_filename = pdf_name,pdf_export_loc = pdf_export_loc
+  for(i in seq(1,length(pdf_list))){
 
-                           ,pdf_dir = pdf_dir$search_pdf_subdir_out
+      #i = 1
+      print(i)
+      pdf_path = pdf_list$pdf_paths[i]
+      pdf_name = pdf_list$pdf_files[i]
+      pdf_dir = pdf_dir_list[i]
+      json_path <- convert_jpeg_json_per_pdf(python_loc = python_loc,
+                                             auth_file_loc = google_auth_file_loc,
+                                             pdf_path=pdf_path,
+                                             pdf_name= pdf_name,
+                                             pdf_dir_list = pdf_dir_list)
 
 
-    )
 
-    cat(paste0('Completed processing ', pdf_name, '\n'))
-  },pdf_list$pdf_paths,pdf_list$pdf_files,pdf_dir_list))
+      call_python_convert_gcv_hocr(python_loc ,json_path)
+
+
+      call_python_export_pdf(python_loc,pdf_filename = pdf_name,pdf_export_loc =pdf_export_loc
+                             #,pdf_dir = str_replace_all(pdf_dir[[1]]$search_pdf_subdir_out,'//','/')
+                             ,pdf_dir = pdf_dir[[1]]$search_pdf_subdir_out
+                             #,pdf_dir = '/var/folders/pv/'
+
+      )
+
+
+
+
+
+    }
+
 
 
 }

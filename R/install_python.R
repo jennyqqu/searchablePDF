@@ -245,7 +245,7 @@ search_file_in_vir_dir <- function(file){
  print('here')
   return(find.file(file, list.dirs(paste0(Sys.getenv('HOME'),'/.virtualenvs/searchablePDF/'))))
   }else{
-    return(find.file(file, list.dirs(paste0(Sys.getenv('WORKON_HOME'),'/.virtualenvs/searchablePDF/'))))
+    return(find.file(file, list.dirs(paste0(Sys.getenv('WORKON_HOME'),'/searchablePDF/'))))
 
   }
 

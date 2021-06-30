@@ -197,7 +197,7 @@ setup_python_virtual_env<- function(python_interpreter=NULL,force_installation =
 
     return(list(python_loc =  get_exc_by_os(is_windows(), file = 'python')))
   }else{
-
+    print(get_exc_by_os(is_windows(), file = 'python'))
     return(list(python_loc =  get_exc_by_os(is_windows(), file = 'python')))
   }
 

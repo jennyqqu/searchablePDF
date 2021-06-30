@@ -238,7 +238,7 @@ is_windows <- function(){
 #if exc not found in vir_dir, new one will create 
 search_file_in_vir_dir <- function(file ){
   
-  find.file(file, list.dirs(paste0(Sys.getenv('HOME'),'/.virtualenvs/searchPDF/')))
+  find.file(file, list.dirs(paste0(Sys.getenv('HOME'),'/.virtualenvs/searchablePDF/')))
   
   
 }

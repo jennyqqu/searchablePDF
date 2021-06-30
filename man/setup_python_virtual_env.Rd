@@ -4,13 +4,19 @@
 \alias{setup_python_virtual_env}
 \title{Setup python virtual environment for SearchablePDF}
 \usage{
-setup_python_virtual_env(python_interpreter = NULL, force_installation = FALSE)
+setup_python_virtual_env(
+  python_interpreter = NULL,
+  force_installation = FALSE,
+  virtual_path = NULL
+)
 }
 \arguments{
 \item{python_interpreter}{This is the python interpreter location to be used to create the virtual environment.
 By default this is set to NULL. If NULL is set, Python 3.8.7 will be downloaded to your machine in order to create the virtual enviornment.}
 
 \item{force_installation}{This will force to recreate the virtual environment}
+
+\item{virtual_path}{virutal env path}
 }
 \value{
 virtual environment path information

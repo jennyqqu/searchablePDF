@@ -8,7 +8,8 @@ convert_pdf_searchable(
   google_auth_file_loc,
   input_directory,
   pdf_export_loc,
-  python_interpreter = NULL
+  python_interpreter = NULL,
+  virtual_path = NULL
 )
 }
 \arguments{

@@ -266,7 +266,7 @@ convert_pdf_searchable <- function(google_auth_file_loc,input_directory, pdf_exp
 
 
 
-  #   }
+    }
 
 
 

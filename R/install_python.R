@@ -185,7 +185,7 @@ setup_python_virtual_env<- function(python_interpreter=NULL,force_installation =
 
 
       virtualenv_create("searchablePDF", python = python_interpreter)
-      py_install(packages = c('google-cloud-vision','lxml','reportlab','openssls'),env = 'searchablePDF', method = 'virtualenv',version = version)
+      py_install(packages = c('google-cloud-vision','lxml','reportlab','openssl'),env = 'searchablePDF', method = 'virtualenv',version = version)
 
     }
 

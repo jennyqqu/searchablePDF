@@ -146,9 +146,10 @@ setup_python_virtual_env<- function(python_interpreter=NULL,force_installation =
 
   }
 
-  if (force_installation || !virtualenv_exists('searchablePDF')){
-    #create virutalenvs
 
+    #create virutalenvs
+  tryCatch({
+    if (force_installation || !virtualenv_exists('searchablePDF')){
     if(force_installation){
       cat("\n You chose force_installation option for python virtual environment.\n\n")
       user_answer <- askYesNo(msg = 'Do you want to continue reinstall Python and setup virtual env? ', default = TRUE,
@@ -174,20 +175,40 @@ setup_python_virtual_env<- function(python_interpreter=NULL,force_installation =
       stop('User cancelled Python installation/Permission Denied')
     }
 
-    if(is.null(python_interpreter)){
 
-      version <- "3.8.7"
-      py_install(packages = c('google-cloud-vision','lxml','reportlab','openssl'),env = 'searchablePDF', method = 'virtualenv',version = version)
+      if(is.null(python_interpreter)){
+        version = '3.8.3'
+        if(is_windows()){
+        #miniconda
+        py_install(packages = c('google-cloud-vision','lxml','reportlab','openssl'),env = 'searchablePDF', method = 'virtualenv',version = version)
+        }else{
+        #virtualenv
+        install_python(version = version)
+        py_install(packages = c('google-cloud-vision','lxml','reportlab','openssl-python'),env = 'searchablePDF', method = 'virtualenv',version = version)
+        }
+      }else{
+        #use the python-non conda version and install package one by one
+        virtualenv_create("searchablePDF", python = python_interpreter)
+        pip_loc =  get_exc_by_os(is_windows(), file = 'python')
 
-    }
+        cmd = paste0(pip_loc,' ','-m pip install --upgrade pip')
+        system(cmd , intern = T)
+        cmd = paste0(pip_loc,' ','install google-cloud-vision')
+        system(cmd , intern = T)
+        cmd = paste0(pip_loc,' ','install lxml')
+        system(cmd , intern = T)
+        cmd = paste0(pip_loc,' ','install reportlab')
+        system(cmd , intern = T)
+        cmd = paste0(pip_loc,' ','install openssl-python')
+        system(cmd , intern = T)
+        #py_install(packages = c('google-cloud-vision','lxml','reportlab','openssl-python'),env = 'searchablePDF', method = 'virtualenv',version = version,pip = T)
 
-    else{
+      }
 
 
-      virtualenv_create("searchablePDF", python = python_interpreter)
-      py_install(packages = c('google-cloud-vision','lxml','reportlab','openssl'),env = 'searchablePDF', method = 'virtualenv',version = version)
 
-    }
+
+
 
 
     #cat("\nVirtual Environment Created\n\n")
@@ -200,6 +221,14 @@ setup_python_virtual_env<- function(python_interpreter=NULL,force_installation =
     print(get_exc_by_os(is_windows(), file = 'python'))
     return(list(python_loc =  get_exc_by_os(is_windows(), file = 'python')))
   }
+
+
+
+  },error = function(e){
+   print(error)
+    virtualenv_remove('searchablePDF',confirm = F)
+
+  })
 
 
 

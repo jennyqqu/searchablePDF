@@ -330,8 +330,8 @@ if __name__ == '__main__':
             outfile.close() 
     
    
-    default_dpi = 300
+    default_dpi = 72
     
-    export_pdf(args.json_dir,300, args.pdf_export_loc + '/'+os.path.splitext(args.pdf_filename)[0]+".pdf") 
+    export_pdf(args.json_dir,default_dpi, args.pdf_export_loc + '/'+os.path.splitext(args.pdf_filename)[0]+".pdf") 
     
  

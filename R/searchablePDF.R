@@ -228,7 +228,7 @@ convert_pdf_searchable <- function(google_auth_file_loc,input_directory, pdf_exp
   verify_virtualenv()
 
 
-  python_info <- setup_python_virtual_env(python_interpreter=python_interpreter,virtual_path=virtual_path)
+  python_info <- setup_python_virtual_env(python_interpreter=python_interpreter,virtual_path=NULL)
 
   python_loc <- python_info$python_loc
 

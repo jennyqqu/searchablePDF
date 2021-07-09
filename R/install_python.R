@@ -26,6 +26,9 @@
 #' # example to use the existing Python version
 #' setup_python_virtual_env(python_interpreter = 'usr/bin/python')
 #'
+#' # example to change the virtual environment working directory (Default: ~/.virtualenv)
+#' setup_python_virtual_env(python_interpreter = 'usr/bin/python', virtual_path = 'my/path/to/.virtualenv')
+#'
 #'
 #'
 #' }
@@ -177,7 +180,7 @@ setup_python_virtual_env<- function(python_interpreter=NULL,force_installation =
 
 
       if(is.null(python_interpreter)){
-        version = '3.8.3'
+        version = '3.8.4'
         if(is_windows()){
         #miniconda
         py_install(packages = c('google-cloud-vision','lxml','reportlab','openssl'),env = 'searchablePDF', method = 'virtualenv',version = version)

@@ -8,7 +8,7 @@ Description: A R wrapper to call python functions to utilize GoogleVision API to
 URL: https://github.com/jennyqqu/searchablePDF-R/
 BugReports: https://github.com/jennyqqu/searchablePDF-R/issues
 Depends: R (>= 3.3.0)
-Imports: pdftools, stringr, googleAuthR, pbapply, reticulate, stats
+Imports: pdftools, stringr, googleAuthR, pbapply, reticulate, stats, reader, magick
 License: file LICENSE
 Encoding: UTF-8
 LazyData: true

@@ -4,13 +4,7 @@
 \alias{convert_pdf_searchable}
 \title{Batch Convert PDFs into searchable PDF}
 \usage{
-convert_pdf_searchable(
-  google_auth_file_loc,
-  input_directory,
-  pdf_export_loc,
-  python_interpreter = NULL,
-  virtual_path = NULL
-)
+convert_pdf_searchable(google_auth_file_loc, input_directory, pdf_export_loc)
 }
 \arguments{
 \item{google_auth_file_loc}{This is the file path of your Google Cloud API service account json file}
@@ -43,13 +37,22 @@ pdf_export_loc = '/Users/jenny/pdf_output'
 
 input_directory <- 'your input directory'
 
-# example if you dont have python installed and want to use the automated downloaded one (3.8.7)
-convert_pdf_searchable(google_auth_loc,python_interpreter,
-input_directory,pdf_export_loc)
+# example if you dont have python installed and want to use the automated
+downloaded one (3.8.7)
+setup_python_virtual_env()
+convert_pdf_searchable(google_auth_loc,input_directory,pdf_export_loc)
+
 
 # example if you already have python and you want to use that instead
-convert_pdf_searchable(google_auth_loc,python_interpreter = 'usr/bin/python'
-,input_directory,pdf_export_loc)
+setup_python_virtual_env(python_interpreter = 'usr/bin/python')
+convert_pdf_searchable(google_auth_loc,input_directory,pdf_export_loc)
+
+
+# example if you want to change the default virutalenv path into something
+else
+setup_python_virtual_env(python_interpreter = 'usr/bin/python',
+ virtual_path = 'my/path/to/.virtualenv')
+convert_pdf_searchable(google_auth_loc,input_directory,pdf_export_loc)
 
 }
 }

@@ -3,6 +3,7 @@
 export(convert_pdf_searchable)
 export(setup_python_virtual_env)
 import(googleAuthR)
+import(magick)
 import(pbapply)
 import(pdftools)
 import(reader)

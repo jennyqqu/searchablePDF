@@ -60,6 +60,11 @@ generate_dir_pdf_list <- function(pdf_list){
 }
 
 
+
+#'
+#'
+#'@import magick
+
 convert_jpeg_json_per_pdf <- function(python_loc,auth_file_loc,pdf_path,pdf_name,pdf_dir_list){
 
 
@@ -82,7 +87,10 @@ convert_jpeg_json_per_pdf <- function(python_loc,auth_file_loc,pdf_path,pdf_name
 
 
   for(jpg in jpg_fullpath){
+    #jpg <- '/Users/qianqu/Code/data_science/project/searchablePDF/OCR/share/16_2.jpg'
+    img = image_read(jpg) %>% image_resize('600X600')
 
+    image_write(img,jpg)
 
     call_python_convert_jpg_gcv (python_loc,auth_file_loc,jpg)
 
@@ -138,6 +146,18 @@ call_python_export_pdf <- function(python_loc,pdf_filename,pdf_export_loc,pdf_di
 
 }
 
+verify_virtualenv <- function(){
+  if (virtualenv_exists('searchablePDF')){
+    return(TRUE)
+  }else{
+    stop("\n Please run setup_python_virtual_env() to create the virtual env.
+        \n\n")
+    return(FALSE)
+
+  }
+
+}
+
 
 
 #' Batch Convert PDFs into searchable PDF
@@ -175,13 +195,22 @@ call_python_export_pdf <- function(python_loc,pdf_filename,pdf_export_loc,pdf_di
 #'
 #' input_directory <- 'your input directory'
 #'
-#' # example if you dont have python installed and want to use the automated downloaded one (3.8.7)
-#' convert_pdf_searchable(google_auth_loc,python_interpreter,
-#' input_directory,pdf_export_loc)
+#' # example if you dont have python installed and want to use the automated
+#' downloaded one (3.8.7)
+#' setup_python_virtual_env()
+#' convert_pdf_searchable(google_auth_loc,input_directory,pdf_export_loc)
+#'
 #'
 #' # example if you already have python and you want to use that instead
-#' convert_pdf_searchable(google_auth_loc,python_interpreter = 'usr/bin/python'
-#' ,input_directory,pdf_export_loc)
+#' setup_python_virtual_env(python_interpreter = 'usr/bin/python')
+#' convert_pdf_searchable(google_auth_loc,input_directory,pdf_export_loc)
+#'
+#'
+#' # example if you want to change the default virutalenv path into something
+#' else
+#' setup_python_virtual_env(python_interpreter = 'usr/bin/python',
+#'  virtual_path = 'my/path/to/.virtualenv')
+#' convert_pdf_searchable(google_auth_loc,input_directory,pdf_export_loc)
 #'
 #' }
 
@@ -192,9 +221,12 @@ call_python_export_pdf <- function(python_loc,pdf_filename,pdf_export_loc,pdf_di
 
 
 
-convert_pdf_searchable <- function(google_auth_file_loc,input_directory, pdf_export_loc,python_interpreter = NULL,virtual_path=NULL){
+convert_pdf_searchable <- function(google_auth_file_loc,input_directory, pdf_export_loc){
 
   validate_google_auth(google_auth_file_loc)
+
+  verify_virtualenv()
+
 
   python_info <- setup_python_virtual_env(python_interpreter=python_interpreter,virtual_path=virtual_path)
 

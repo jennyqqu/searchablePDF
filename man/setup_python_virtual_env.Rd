@@ -35,6 +35,9 @@ setup_python_virtual_env()
 # example to use the existing Python version
 setup_python_virtual_env(python_interpreter = 'usr/bin/python')
 
+# example to change the virtual environment working directory (Default: ~/.virtualenv)
+setup_python_virtual_env(python_interpreter = 'usr/bin/python', virtual_path = 'my/path/to/.virtualenv')
+
 
 
 }

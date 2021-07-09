@@ -88,9 +88,9 @@ convert_jpeg_json_per_pdf <- function(python_loc,auth_file_loc,pdf_path,pdf_name
 
   for(jpg in jpg_fullpath){
     #jpg <- '/Users/qianqu/Code/data_science/project/searchablePDF/OCR/share/16_2.jpg'
-    img = image_read(jpg) %>% image_resize('600X600')
+    #img = image_read(jpg) %>% image_resize('600X600')
 
-    image_write(img,jpg)
+    #image_write(img,jpg)
 
     call_python_convert_jpg_gcv (python_loc,auth_file_loc,jpg)
 

@@ -89,6 +89,16 @@ def fromResponse(resp, baseline_tolerance=2, **kwargs):
     last_baseline = -100
     page = None
     curline = None
+    if 'error' in resp.keys():
+        box = [{"x": 0, "y": 0}, {"x": 0, "y": 0}, {"x": 0, "y": 0}, {"x": 0, "y": 0}]
+        page = GCVAnnotation(
+            ocr_class='ocr_page',
+            htmlid='page_0',
+            box=box,
+            **kwargs
+        )
+        return page
+
     if isinstance(resp, bool) and not resp:
         box = [{"x": 0, "y": 0}, {"x": 0, "y": 0}, {"x": 0, "y": 0}, {"x": 0, "y": 0}]
         page = GCVAnnotation(

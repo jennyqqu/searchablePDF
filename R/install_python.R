@@ -82,11 +82,11 @@ setup_python_virtual_env<- function(python_interpreter=NULL,force_installation =
         version = '3.8.4'
         if(is_windows()){
         #miniconda
-        py_install(packages = c('google-cloud-vision','lxml','reportlab','openssl'),env = 'searchablePDF', method = 'virtualenv',version = version)
+        py_install(packages = c('google-cloud-vision','lxml','reportlab','openssl'),envname = 'searchablePDF', method = 'virtualenv',version = version)
         }else{
         #virtualenv
         install_python(version = version)
-        py_install(packages = c('google-cloud-vision','lxml','reportlab','openssl-python'),env = 'searchablePDF', method = 'virtualenv',version = version)
+        py_install(packages = c('google-cloud-vision','lxml','reportlab','openssl-python'),envname = 'searchablePDF', method = 'virtualenv',version = version)
         }
       }else{
         #use the python-non conda version and install package one by one

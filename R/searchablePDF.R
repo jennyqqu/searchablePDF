@@ -169,9 +169,6 @@ verify_virtualenv <- function(){
 #' @param google_auth_file_loc This is the file path of your Google Cloud API service account json file
 #' @param input_directory Folder location that contains the list of PDFs you want to convert
 #' @param pdf_export_loc  Folder location for converted PDF
-#' @param python_interpreter This is the python interpreter location to be used to create the virtual environment.
-#'   By default this is set to NULL. If NULL is set, Python 3.8.7 will be downloaded to your machine in order to create the virtual environment.
-#' @param virtual_path
 #' @import pdftools
 #' @import stringr
 #' @import reticulate
@@ -223,7 +220,7 @@ convert_pdf_searchable <- function(google_auth_file_loc,input_directory, pdf_exp
   verify_virtualenv()
 
 
-  python_info <- setup_python_virtual_env(python_interpreter=python_interpreter,virtual_path=NULL)
+  python_info <- setup_python_virtual_env(python_interpreter=NULL,virtual_path=NULL)
 
   python_loc <- python_info$python_loc
 

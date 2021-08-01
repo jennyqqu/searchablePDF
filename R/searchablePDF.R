@@ -78,7 +78,7 @@ convert_jpeg_json_per_pdf <- function(python_loc,auth_file_loc,pdf_path,pdf_name
   invisible(pdf_convert(pdf_path , format = "jpg",dpi = 300,pages =NULL,filenames =file_paths,verbose = F))
 
 
-  #jpg_list <- paste0(output_directory, "/",folder_name,'/',list.files(paste0(output_directory, "/",folder_name), pattern = "*.jpg"), sep = "")
+
   jpg_list <-list.files(pdf_dir$search_pdf_subdir_out, pattern = "*.jpg")
   jpg_fullpath <- paste0(pdf_dir$search_pdf_subdir_out,'/',jpg_list)
 
@@ -270,7 +270,7 @@ convert_pdf_searchable <- function(google_auth_file_loc,input_directory, pdf_exp
 
 
 
-    }
+
 
 
 

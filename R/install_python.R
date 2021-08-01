@@ -4,18 +4,23 @@
 #' Setup python virtual environment for SearchablePDF
 #'
 #' @description
-#' This function creates a virtual environment that SearchablePDF will run on. You can provide the your existing Python interpreter location if you want to use that.
+#' This function creates a virtual environment that SearchablePDF will run on.
+#' You can provide the your existing Python interpreter location if you want to use that.
 #'
 #' @details
-#' The main function convert_pdf_searchable will automatically run a validation to check if you have the correct virtual env setup and install it by running this function.
+#' The main function convert_pdf_searchable will automatically run a validation
+#' to check if you have the correct virtual env setup and install it by running this function.
 #'
-#' @param python_interpreter This is the python interpreter location to be used to create the virtual environment.
-#'   By default this is set to NULL. If NULL is set, Python 3.8.7 will be downloaded to your machine in order to create the virtual enviornment.
+#' @param python_interpreter This is the python interpreter location to be used
+#' to create the virtual environment.
+#' By default this is set to NULL. If NULL is set, Python 3.8.7 will be downloaded
+#' to your machine in order to create the virtual enviornment.
 #' @param force_installation This will force to recreate the virtual environment
 #' @param virtual_path virutal env path
 #'
 #' @return virtual environment path information
 #' @import reader
+#' @importFrom utils askYesNo
 #' @export
 #'
 #' @examples
@@ -27,7 +32,8 @@
 #' setup_python_virtual_env(python_interpreter = 'usr/bin/python')
 #'
 #' # example to change the virtual environment working directory (Default: ~/.virtualenv)
-#' setup_python_virtual_env(python_interpreter = 'usr/bin/python', virtual_path = 'my/path/to/.virtualenv')
+#' setup_python_virtual_env(python_interpreter = 'usr/bin/python',
+#' virtual_path = 'my/path/to/.virtualenv')
 #'
 #'
 #'
@@ -127,7 +133,7 @@ setup_python_virtual_env<- function(python_interpreter=NULL,force_installation =
 
 
   },error = function(e){
-   print(error)
+    print(e)
     virtualenv_remove('searchablePDF',confirm = F)
 
   })

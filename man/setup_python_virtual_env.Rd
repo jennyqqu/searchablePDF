@@ -11,8 +11,10 @@ setup_python_virtual_env(
 )
 }
 \arguments{
-\item{python_interpreter}{This is the python interpreter location to be used to create the virtual environment.
-By default this is set to NULL. If NULL is set, Python 3.8.7 will be downloaded to your machine in order to create the virtual enviornment.}
+\item{python_interpreter}{This is the python interpreter location to be used
+to create the virtual environment.
+By default this is set to NULL. If NULL is set, Python 3.8.7 will be downloaded
+to your machine in order to create the virtual enviornment.}
 
 \item{force_installation}{This will force to recreate the virtual environment}
 
@@ -22,10 +24,12 @@ By default this is set to NULL. If NULL is set, Python 3.8.7 will be downloaded 
 virtual environment path information
 }
 \description{
-This function creates a virtual environment that SearchablePDF will run on. You can provide the your existing Python interpreter location if you want to use that.
+This function creates a virtual environment that SearchablePDF will run on.
+You can provide the your existing Python interpreter location if you want to use that.
 }
 \details{
-The main function convert_pdf_searchable will automatically run a validation to check if you have the correct virtual env setup and install it by running this function.
+The main function convert_pdf_searchable will automatically run a validation
+to check if you have the correct virtual env setup and install it by running this function.
 }
 \examples{
 \dontrun{
@@ -36,7 +40,8 @@ setup_python_virtual_env()
 setup_python_virtual_env(python_interpreter = 'usr/bin/python')
 
 # example to change the virtual environment working directory (Default: ~/.virtualenv)
-setup_python_virtual_env(python_interpreter = 'usr/bin/python', virtual_path = 'my/path/to/.virtualenv')
+setup_python_virtual_env(python_interpreter = 'usr/bin/python',
+virtual_path = 'my/path/to/.virtualenv')
 
 
 

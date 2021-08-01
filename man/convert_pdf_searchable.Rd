@@ -12,12 +12,6 @@ convert_pdf_searchable(google_auth_file_loc, input_directory, pdf_export_loc)
 \item{input_directory}{Folder location that contains the list of PDFs you want to convert}
 
 \item{pdf_export_loc}{Folder location for converted PDF}
-
-\item{python_interpreter}{This is the python interpreter location to be used to create the virtual environment.
-By default this is set to NULL. If NULL is set, Python 3.8.7 will be downloaded to your machine in order to create the virtual environment.}
-}
-\value{
-
 }
 \description{
 This function converts a list of PDFs into searchable PDF using GoogleVisionAPI

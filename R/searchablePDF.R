@@ -175,7 +175,7 @@ verify_virtualenv <- function(){
 #' @import googleAuthR
 #' @import pbapply
 #' @import stats
-#' @return
+
 #' @export
 #'
 #' @examples

@@ -50,6 +50,7 @@ def unique(list1):
     # print list
     for x in unique_list:
         print(x)
+    return(unique_list)
 
 
 import sys

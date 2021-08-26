@@ -212,6 +212,8 @@ def export_pdf(playground, default_dpi, savefile=False):
     jpg_idx = sorted([os.path.splitext(i)[0] for i in jpgs], key = int)
 
     images = unique([ playground + '/' + i + '.jpg' for i in jpg_idx])
+
+    print(images)
     if len(images) == 0:
         print("WARNING: No JPG images found in the folder", playground,
               "\nScript cannot proceed without them and will terminate now.\n")

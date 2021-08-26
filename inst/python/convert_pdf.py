@@ -37,7 +37,19 @@ except ImportError:
     from cgi import escape  # python 2.x
 
 
-
+def unique(list1):
+     
+    # initialize a null list
+    unique_list = []
+     
+    # traverse for all elements
+    for x in list1:
+        # check if exists in unique_list or not
+        if x not in unique_list:
+            unique_list.append(x)
+    # print list
+    for x in unique_list:
+        print(x)
 
 
 import sys
@@ -199,7 +211,7 @@ def export_pdf(playground, default_dpi, savefile=False):
     jpgs = [i for i in jpgs if i != '.DS_Store']
     jpg_idx = sorted([os.path.splitext(i)[0] for i in jpgs], key = int)
 
-    images = [ playground + '/' + i + '.jpg' for i in jpg_idx]
+    images = unique([ playground + '/' + i + '.jpg' for i in jpg_idx])
     if len(images) == 0:
         print("WARNING: No JPG images found in the folder", playground,
               "\nScript cannot proceed without them and will terminate now.\n")
